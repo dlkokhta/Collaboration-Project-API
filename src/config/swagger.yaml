@@ -1,0 +1,159 @@
+openapi: 3.0.0
+info:
+  title: Blog App API
+  description: Blog API
+  version: 0.1.9
+
+servers:
+  - url: http://localhost:3000
+    description: local server
+  - url: http://todo-app-api-production-2c38.up.railway.app
+    description: production server
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+paths:
+  /api/registration:
+    post:
+      summary: Create new user
+      tags:
+        - Registration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  description: The username of the user
+                email:
+                  type: string
+                  description: The email of the user
+                password:
+                  type: string
+                  description: The password of the user
+
+      responses:
+        "200":
+          description: User successfully added to the database
+        "400":
+          description: Bad request, username is required
+        "500":
+          description: Internal server error
+
+  /api/login:
+    post:
+      summary: User login
+      tags:
+        - Authentication
+      requestBody:
+        
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: The username of the user
+                password:
+                  type: string
+                  description: The password of the user
+      responses:
+        "422":
+          description: User successfully logged in
+        "401":
+          description: Unauthorized, invalid credentials
+        "500":
+          description: Internal server error
+  
+
+  
+  /api/create-blog:
+      post:
+        summary: Create a new blog
+        description: This endpoint allows you to create a new blog.
+        requestBody:
+          required: true
+          content:
+            multipart/form-data:
+              schema:
+                type: object
+                properties:
+                  title:
+                    type: string
+                    description: The title of the blog
+                  description:
+                    type: string
+                    description: The description of the blog
+                  image:
+                    type: string
+                    format: binary  # Use binary format for files
+                    description: The image file of the blog
+                  author:
+                    type: string
+                    description: The author of the blog
+                  publish_date:
+                    type: string
+                    format: date
+                    nullable: true
+                    description: The publish date of the blog
+                  categories:
+                    type: string
+                    description: The categories of the blog
+                  email:
+                    type: string
+                    description: The email associated with the blog
+        responses:
+          '201':
+            description: Blog created successfully
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                      description: The success message
+                   
+          '400':
+            description: Bad request
+          '500':
+            description: Internal server error
+
+  components:
+  schemas:
+    Blog:
+      type: object
+      properties:
+        title:
+          type: string
+          description: The title of the blog
+        description:
+          type: string
+          description: The description of the blog
+        image:
+          type: string
+          description: The image file of the blog
+        author:
+          type: string
+          description: The author of the blog
+        publish_date:
+          type: string
+          format: date
+          description: The publish date of the blog. This will be the current date by default.
+        categories:
+          type: string
+          description: The categories of the blog
+        email:
+          type: string
+          description: The email associated with the blog
+
+  
