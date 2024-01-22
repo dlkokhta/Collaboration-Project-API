@@ -14,7 +14,10 @@ const addBlogSchema = Joi.object({
     "any.required": "description is a required field",
   })
   ,  
-  image: Joi.object().optional(),  
+  image: Joi.string().required().messages({
+    "string.base": "image should be a string",
+    "any.required": "image is a required field",
+  }),  
   author: Joi.string().required().messages({
     "string.base": "description should be a string",
     "string.min": "description should include 3 characters or more",
@@ -36,21 +39,21 @@ const addBlogSchema = Joi.object({
 
 
 
-// const addBlogSchema = async (data) => {
-//   return Joi.object({
-//     title: Joi.string().min(4).required() ,  
-//     // .messages({
-//     //   "string.base": "title should be a string",
-//     //   "string.min": "title should include 3 characters or more",
-//     //   "any.required": "title is a required field",
-//     // }),
-//     description: Joi.string().min(4).required()
-//     // .messages({
-//     //   "string.base": "description should be a string",
-//     //   "string.min": "description should include 3 characters or more",
-//     //   "any.required": "description is a required field",
-//     // }),
-//   });
-// };
+// // const addBlogSchema = async (data) => {
+// //   return Joi.object({
+// //     title: Joi.string().min(4).required() ,  
+// //     // .messages({
+// //     //   "string.base": "title should be a string",
+// //     //   "string.min": "title should include 3 characters or more",
+// //     //   "any.required": "title is a required field",
+// //     // }),
+// //     description: Joi.string().min(4).required()
+// //     // .messages({
+// //     //   "string.base": "description should be a string",
+// //     //   "string.min": "description should include 3 characters or more",
+// //     //   "any.required": "description is a required field",
+// //     // }),
+// //   });
+// // };
 
 export default addBlogSchema;

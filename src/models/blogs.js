@@ -12,11 +12,9 @@ const blogsSchema = new Schema({
     type: Schema.Types.String,
     required: true,
   },
-  image: {
-    contentType: {
-      type: String,
-      required: true,
-    },
+  avatar: {
+     type: Schema.Types.String,
+    required: true,
   },
   author: {
     type: Schema.Types.String,

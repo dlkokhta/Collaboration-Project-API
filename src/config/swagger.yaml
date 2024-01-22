@@ -7,7 +7,7 @@ info:
 servers:
   - url: http://localhost:3000
     description: local server
-  - url: http://todo-app-api-production-2c38.up.railway.app
+  - url: collaboration-project-api-production.up.railway.app
     description: production server
 
 components:
@@ -77,56 +77,56 @@ paths:
 
   
   /api/create-blog:
-      post:
-        summary: Create a new blog
-        description: This endpoint allows you to create a new blog.
-        requestBody:
-          required: true
-          content:
-            multipart/form-data:
-              schema:
-                type: object
-                properties:
-                  title:
-                    type: string
-                    description: The title of the blog
-                  description:
-                    type: string
-                    description: The description of the blog
-                  image:
-                    type: string
-                    format: binary  # Use binary format for files
-                    description: The image file of the blog
-                  author:
-                    type: string
-                    description: The author of the blog
-                  publish_date:
-                    type: string
-                    format: date
-                    nullable: true
-                    description: The publish date of the blog
-                  categories:
-                    type: string
-                    description: The categories of the blog
-                  email:
-                    type: string
-                    description: The email associated with the blog
-        responses:
-          '201':
-            description: Blog created successfully
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    message:
-                      type: string
-                      description: The success message
-                   
-          '400':
-            description: Bad request
-          '500':
-            description: Internal server error
+   post:
+    summary: Create a new blog
+    description: This endpoint allows you to create a new blog.
+    requestBody:
+      required: true
+      content:
+        multipart/form-data:
+          schema:
+            type: object
+            properties:
+              title:
+                type: string
+                description: The title of the blog
+              description:
+                type: string
+                description: The description of the blog
+              avatar:  # Change this to match your multer configuration
+                type: string
+                format: binary  # Use binary format for files
+                description: The image file of the blog (accepted formats: png, jpg, jpeg)  # Specify accepted formats
+              author:
+                type: string
+                description: The author of the blog
+              publish_date:
+                type: string
+                format: date
+                nullable: true
+                description: The publish date of the blog
+              categories:
+                type: string
+                description: The categories of the blog
+              email:
+                type: string
+                description: The email associated with the blog
+    responses:
+      '201':
+        description: Blog created successfully
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  description: The success message
+      '400':
+        description: Bad request
+      '500':
+        description: Internal server error
+
 
   components:
   schemas:
@@ -155,5 +155,53 @@ paths:
         email:
           type: string
           description: The email associated with the blog
-
   
+  /api/blogs/{id}:
+    get:
+      summary: Get a blog by id
+      description: This endpoint allows you to get a blog by id.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: The id of the blog
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Blog retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: The success message
+                 
+        '404':
+          description: Blog not found
+        '500':
+          description: Internal server error
+  
+  /api/blogs:
+    get:
+      tags:
+        - Auth
+      security:
+        - bearerAuth: []
+      summary: Get all blogs
+      description: This endpoint allows you to get all blogs.
+      responses:
+        '200':
+          description: Blogs retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: The success message
+        '500':
+          description: Internal server error

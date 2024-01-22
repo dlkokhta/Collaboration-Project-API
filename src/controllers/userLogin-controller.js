@@ -30,7 +30,7 @@ export const postUserLogin = async (req, res) => {
 
     const payload = {
       email: userData.email,
-      password: userData.password,
+      id: userData.id,
     };
 
     const token = jwt.sign({ payload }, "secret", {
