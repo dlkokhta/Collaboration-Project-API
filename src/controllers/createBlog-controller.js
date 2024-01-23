@@ -5,10 +5,10 @@ import blogs from "../models/blogs.js"
 
 
 export const postCreateBlog = async (req, res) => {
-    
- 
+  
+  
   const { file, body } = req;
-  console.log(file);
+  console.log("bodybodybodybody",body);
   
 
 //  const validator = await validateBlog({ ...body, avatar: file.filename });
@@ -19,11 +19,15 @@ export const postCreateBlog = async (req, res) => {
       // if (error) {
       //   return res.status(400).send(error.details[0].message);
       // }
-
+      
       const blog = new blogs({
         ...body,
         avatar: file.filename,
+        userID: req.userID1,
+        
+        
       }); 
+      console.log("req.userID",req.userID1)
       await blog.save();
       
 

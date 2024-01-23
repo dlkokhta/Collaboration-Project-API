@@ -77,55 +77,61 @@ paths:
 
   
   /api/create-blog:
-   post:
-    summary: Create a new blog
-    description: This endpoint allows you to create a new blog.
-    requestBody:
-      required: true
-      content:
-        multipart/form-data:
-          schema:
-            type: object
-            properties:
-              title:
-                type: string
-                description: The title of the blog
-              description:
-                type: string
-                description: The description of the blog
-              avatar:  # Change this to match your multer configuration
-                type: string
-                format: binary  # Use binary format for files
-                description: The image file of the blog (accepted formats: png, jpg, jpeg)  # Specify accepted formats
-              author:
-                type: string
-                description: The author of the blog
-              publish_date:
-                type: string
-                format: date
-                nullable: true
-                description: The publish date of the blog
-              categories:
-                type: string
-                description: The categories of the blog
-              email:
-                type: string
-                description: The email associated with the blog
-    responses:
-      '201':
-        description: Blog created successfully
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                message:
-                  type: string
-                  description: The success message
-      '400':
-        description: Bad request
-      '500':
-        description: Internal server error
+      post:
+        summary: Create a new blog
+        description: This endpoint allows you to create a new blog.
+        tags:
+          - Blogs
+        security:
+          - bearerAuth: []
+        requestBody:
+          required: true
+          content:
+            multipart/form-data:
+              schema:
+                type: object
+                properties:
+                  title:
+                    type: string
+                    description: The title of the blog
+                  description:
+                    type: string
+                    description: The description of the blog
+                  avatar:
+                    type: string
+                    format: binary
+                    description: The image file of the blog (accepted formats: png, jpg, jpeg)
+                  author:
+                    type: string
+                    description: The author of the blog
+                  publish_date:
+                    type: string
+                    format: date
+                    nullable: true
+                    description: The publish date of the blog
+                  categories:
+                    type: string
+                    description: The categories of the blog
+                  email:
+                    type: string
+                    description: The email associated with the blog
+        responses:
+          '201':
+            description: Blog created successfully
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                      description: The success message
+          '400':
+            description: Bad request
+          '500':
+            description: Internal server error
+
+
 
 
   components:
@@ -205,3 +211,32 @@ paths:
                     description: The success message
         '500':
           description: Internal server error
+
+  /api/blogs/{category}:
+    get:
+      summary: Get a blog by category
+      description: This endpoint allows you to get a blog by category.
+      parameters:
+        - in: path
+          name: category
+          required: true
+          description: The category of the blog
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Blog retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: The success message
+                 
+        '404':
+          description: Blog not found
+        '500':
+          description: Internal server error
+

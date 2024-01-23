@@ -30,10 +30,10 @@ export const postUserLogin = async (req, res) => {
 
     const payload = {
       email: userData.email,
-      id: userData.id,
+      userID: existingUser.userID
     };
 
-    const token = jwt.sign({ payload }, "secret", {
+    const token = jwt.sign({ payload }, process.env.SECRET_KEY, {
       expiresIn: 86400, // expires in 24 hours
     });
 

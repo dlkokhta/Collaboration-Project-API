@@ -5,6 +5,7 @@ import { postCreateBlog } from "../controllers/createBlog-controller.js";
 import { getBlogByID } from "../controllers/returnBlogByID-controller.js";
 import { getAllBlogs } from "../controllers/returnAllBlogs-constoller.js";
 import verifyToken from "../middlewares/auth-middleware.js";
+import { getAllBlogsByCategory } from "../controllers/returnAllBlogsByCategory-controller.js";
 import multer from "multer";
  
 
@@ -34,10 +35,12 @@ const fileFilter = (req, file, cb) => {
 
 blogRouter.post("/registration", postUserRegistration);
 blogRouter.post("/login", postUserLogin);
-blogRouter.post("/create-blog", multer({storage:fileStorage, fileFilter}).single("avatar"), postCreateBlog);
+blogRouter.post("/create-blog", verifyToken, multer({storage:fileStorage, fileFilter}).single("avatar"),postCreateBlog);
 
 blogRouter.get("/blogs/:id", getBlogByID);
 blogRouter.get("/blogs",verifyToken, getAllBlogs);
+blogRouter.get("/blogs/:category", getAllBlogsByCategory);
+
 
 
 

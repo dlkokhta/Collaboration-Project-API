@@ -4,6 +4,12 @@ import { v4 as uuid } from "uuid";
 const { Schema } = mongoose;
 
 const blogsSchema = new Schema({
+  userID: {
+    type: Schema.Types.String,
+    required: true,
+    
+  },
+
   title: {
     type: Schema.Types.String,
     required: true,
