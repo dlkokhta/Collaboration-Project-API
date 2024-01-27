@@ -1,3 +1,4 @@
+
 import mongoose from "mongoose";
 import { v4 as uuid } from "uuid";
 
@@ -27,8 +28,8 @@ const blogsSchema = new Schema({
     required: true,
   },
   publish_date: {
-    type: String,
-    default: new Date().toISOString(), // Set default to current date in string format
+    type: Date,
+    default: Date.now(), // Set default to current date in string format
     required: true,
   },
 

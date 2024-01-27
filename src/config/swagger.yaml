@@ -104,17 +104,15 @@ paths:
                   author:
                     type: string
                     description: The author of the blog
-                  publish_date:
-                    type: string
-                    format: date
-                    nullable: true
-                    description: The publish date of the blog
+                  # publish_date:
+                  #   type: string
+                  #   format: date
+                  #   nullable: true
+                  #   description: The publish date of the blog
                   categories:
                     type: string
                     description: The categories of the blog
-                  email:
-                    type: string
-                    description: The email associated with the blog
+                 
         responses:
           '201':
             description: Blog created successfully
@@ -212,31 +210,5 @@ paths:
         '500':
           description: Internal server error
 
-  /api/blogs/{category}:
-    get:
-      summary: Get a blog by category
-      description: This endpoint allows you to get a blog by category.
-      parameters:
-        - in: path
-          name: category
-          required: true
-          description: The category of the blog
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Blog retrieved successfully
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    description: The success message
-                 
-        '404':
-          description: Blog not found
-        '500':
-          description: Internal server error
+  
 

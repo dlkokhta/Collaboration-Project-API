@@ -24,6 +24,7 @@ const verifyToken = (req, res, next) => {
       // console.log("id inside auth!!!!!!", id);
       
       req.userID1 = verified.payload.userID;
+      req.email = verified.payload.email;
       
       next();
     }

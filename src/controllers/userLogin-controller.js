@@ -25,7 +25,7 @@ export const postUserLogin = async (req, res) => {
 
     const isPasswordCorrect = await bcrypt.compare(
       userData.password,
-      existingUser.password
+      existingUser.password,
     );
 
     const payload = {

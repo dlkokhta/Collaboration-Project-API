@@ -24,7 +24,8 @@ export const postCreateBlog = async (req, res) => {
         ...body,
         avatar: file.filename,
         userID: req.userID1,
-        
+        email: req.email,
+        publish_date: new Date(),
         
       }); 
       console.log("req.userID",req.userID1)
