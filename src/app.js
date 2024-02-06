@@ -6,6 +6,8 @@ import blogRouter from "./routes/blog-router.js";
 import swaggerMiddleware from "./middlewares/swagger-middleware.js";
 import cors from "cors";
 
+
+
 const app = express();
 dotenv.config();
 connectToMongo();
@@ -15,6 +17,9 @@ app.use(bodyParser.json());
 
 app.use("/api", blogRouter);
 
+app.use("/public", express.static("public"));
+
 app.use("/", ...swaggerMiddleware());
 
-app.listen(3000);
+
+app.listen(process.env.PORT || 3000);

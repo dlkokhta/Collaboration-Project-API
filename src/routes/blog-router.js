@@ -38,7 +38,7 @@ blogRouter.post("/login", postUserLogin);
 blogRouter.post("/create-blog", verifyToken, multer({storage:fileStorage, fileFilter}).single("avatar"),postCreateBlog);
 
 blogRouter.get("/blogs/:id", getBlogByID);
-blogRouter.get("/blogs",verifyToken, getAllBlogs);
+blogRouter.get("/blogs", getAllBlogs);
 
 
 

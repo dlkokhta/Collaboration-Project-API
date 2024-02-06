@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 
 export const postUserLogin = async (req, res) => {
   const userData = req.body;
-  console.log(userData);
+  // console.log(userData);
 
   try {
     const { error } = validateUser.validate(userData.email, userData.password);
@@ -20,10 +20,10 @@ export const postUserLogin = async (req, res) => {
     });
 
     if (!existingUser) {
-      return res.status(400).send("Email is not registered");
+      return res.status(400).send({message: "Username or password is wrong" });
     }
 
-    const isPasswordCorrect = await bcrypt.compare(
+    const isPasswordCorrect  = await bcrypt.compare(
       userData.password,
       existingUser.password,
     );
@@ -37,12 +37,14 @@ export const postUserLogin = async (req, res) => {
       expiresIn: 86400, // expires in 24 hours
     });
 
-    if (!isPasswordCorrect) {
-      return res.status(400).send({ error: "Username or password is wrong" });
+    if (!isPasswordCorrect || !existingUser) {
+      return res.status(400).send({ message: "Username or password is wrong" });
     }
     res.send({ message: "user logged in", token });
+    // console.log("sended token", token);
   } catch (error) {
     console.error(error);
     res.status(500).send("An error occurred while logging in");
   }
 };
+  

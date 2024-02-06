@@ -12,6 +12,13 @@ const verifyToken = (req, res, next) => {
   let token = authorization.split(" ")[1];
   console.log("token", token);
 
+
+//   const token = req.headers.authorization && req.headers.authorization.split(' ')[1];
+// console.log("Token from client:", token);
+
+
+  
+
   if (!token) {
     return res.status(401).json({ error: "Token missing" });
   }
@@ -25,6 +32,7 @@ const verifyToken = (req, res, next) => {
       
       req.userID1 = verified.payload.userID;
       req.email = verified.payload.email;
+      
       
       next();
     }

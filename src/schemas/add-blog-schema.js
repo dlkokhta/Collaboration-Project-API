@@ -15,7 +15,7 @@ const addBlogSchema = Joi.object({
   })
   ,  
   image: Joi.string().required().messages({
-    "string.base": "image should be a string",
+   
     "any.required": "image is a required field",
   }),  
   author: Joi.string().required().messages({

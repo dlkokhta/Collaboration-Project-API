@@ -8,7 +8,8 @@ export const postCreateBlog = async (req, res) => {
   
   
   const { file, body } = req;
-  console.log("bodybodybodybody",body);
+  console.log("req.file",req.file)
+  // console.log("bodybodybodybody",body);
   
 
 //  const validator = await validateBlog({ ...body, avatar: file.filename });
@@ -28,7 +29,7 @@ export const postCreateBlog = async (req, res) => {
         publish_date: new Date(),
         
       }); 
-      console.log("req.userID",req.userID1)
+     
       await blog.save();
       
 
