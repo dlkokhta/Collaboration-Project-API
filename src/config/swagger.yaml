@@ -5,7 +5,7 @@ info:
   version: 0.1.9
 
 servers:
-  - url: collaboration-project-api-production.up.railway.app
+  - url: https://blog-app-api-production-2769.up.railway.app/
     description: production server
   - url: http://localhost:3000
     description: local server

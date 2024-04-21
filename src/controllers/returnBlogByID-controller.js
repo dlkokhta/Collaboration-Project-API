@@ -6,6 +6,7 @@ export const getBlogByID = async (req, res) => {
        console.log("id",id); 
       
        const blog = await blogs.findOne({ blogID: id });
+       console.log(blog);
        res.send(blog);
 
     } catch (error) {
